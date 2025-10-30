@@ -1,34 +1,40 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { showUser } from "../features/userDetailsSlice";
+import { deleteUser, showUser } from "../features/userDetailsSlice";
+import CustomModel from "./CustomModel";
+import { Link } from "react-router";
 
 
 const Read = () => {
 
-const dispatch = useDispatch()
+  const [id, setId] = useState();
 
-const {users,loading} = useSelector((state)=>state.app)
+  const [showPopup, setShowPopup] = useState(false);
+  const dispatch = useDispatch()
 
-useEffect(()=>{
-  dispatch(showUser())
-},[dispatch])
+  const { users, loading } = useSelector((state) => state.app)
 
-if(loading){
-  return (<h2 className="text-2xl text-lime-500 text-center font-bold mt-10">Loading..</h2>)
-}
+  useEffect(() => {
+    dispatch(showUser())
+  }, [dispatch])
+
+  if (loading) {
+    return (<h2 className="text-2xl text-lime-500 text-center font-bold mt-10">Loading..</h2>)
+  }
 
   return (
     <div>
-   { users && users.map((ele)=>( <div className="card bg-white shadow-lg text-black w-96 h-60 mx-auto mt-10">
+      {showPopup && <CustomModel id={id} showPopup={showPopup} setShowPopup={setShowPopup} />}
+      {users && users.map((ele) => (<div key={ele.id} className="card bg-white shadow-lg text-black w-96 h-60 mx-auto mt-10">
         <div className="card-body items-center text-center">
           <h2 className="card-title">{ele.name}</h2>
           <p>{ele.email}</p>
           <p>{ele.gender}</p>
           <div className="card-actions justify-end">
-              <button className="btn bg-lime-500 text-white w-24">view</button>
-            <button className="btn bg-lime-500 text-white w-24">Edit</button>
-            <button className="btn bg-lime-500 text-white w-24">Delete</button>
-          
+            <Link> <button className="btn bg-lime-500 text-white w-24" onClick={() => [setId(ele.id), setShowPopup(true)]}>view</button></Link>
+            <Link to ="/delete">    <button className="btn bg-lime-500 text-white w-24" onClick={()=>dispatch(deleteUser(ele.id)) }>Delete</button></Link>
+            <Link to ={`/edit/${ele.id}`}> <button className="btn bg-lime-500 text-white w-24">Edit</button></Link>
+
           </div>
         </div>
       </div>))}
