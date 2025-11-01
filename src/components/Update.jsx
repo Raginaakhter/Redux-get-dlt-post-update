@@ -31,6 +31,9 @@ const Update = () => {
     dispatch(updateUser(updateData));
     navigate("/read");
   }; 
+    if (loading) {
+    return (<h2 className="text-2xl text-lime-500 text-center font-bold mt-10">Loading..</h2>)
+  }
 console.log(updateData);
   return (
     <div>
