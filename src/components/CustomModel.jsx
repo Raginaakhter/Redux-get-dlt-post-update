@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-const CustomModel = ({ id, showPopup, setShowPopup }) => {
+const CustomModel = ({ id,  setShowPopup }) => {
 
     const allusers = useSelector((state) => state.app.users)
 

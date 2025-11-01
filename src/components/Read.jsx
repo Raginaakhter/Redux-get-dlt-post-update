@@ -42,7 +42,7 @@ const Read = () => {
             checked={radioData === ""}
             name="gender"
             onChange={() => setRadioData("")}
-            className="radio radio-xs"
+            className="radio radio-xs  text-lime-500"
           />
           <span>All</span>
         </label>
@@ -54,21 +54,22 @@ const Read = () => {
             value="male"
             checked={radioData === "male"}
             onChange={(e) => setRadioData(e.target.value)}
-            className="radio radio-xs"
+            className="radio radio-xs  text-lime-500"
           />
           <span>Male</span>
         </label>
 
-        <label className="label font-bold flex items-center gap-1 cursor-pointer">
+        <label className="label font-bold  flex items-center gap-1 cursor-pointer">
           <input
             type="radio"
             name="gender"
             value="female"
             checked={radioData === "female"}
             onChange={(e) => setRadioData(e.target.value)}
-            className="radio radio-xs"
+            className="radio radio-xs  text-lime-500"
+            
           />
-          <span>Female</span>
+           <span>Female</span>
         </label>
       </div>
 
@@ -101,7 +102,7 @@ const Read = () => {
           .map((ele) => (
             <div
               key={ele.id}
-              className="card bg-white shadow-lg text-black w-96 h-60 mx-auto mt-10"
+              className="card bg-white shadow-lg text-black w-96 h-60 mx-auto mt-10 "
             >
               <div className="card-body items-center text-center ">
                 <h2 className="card-title">{ele.name}</h2>

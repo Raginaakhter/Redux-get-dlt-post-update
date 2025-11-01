@@ -31,7 +31,7 @@ navigate("/read")
 
   return (
  <div> 
-  <h1 className="text-lime-500 font-bold text-2xl text-center mt-5">Fillup The Form</h1>
+  <h1 className="text-lime-500 font-bold text-2xl text-center mt-5 card-xs shadow-sm">Fillup The Form</h1>
      <form onSubmit={handleSubmit}>
       <div className="card bg-base-100 w-full max-w-sm mx-auto mt-10 shadow-2xl">
         <div className="card-body">
