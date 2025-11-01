@@ -13,7 +13,8 @@ export const createUser = createAsyncThunk("createUser", async (data, { rejectWi
   });
 
   try {
-    const result = response.json();
+   const result = await response.json();
+
     return result;
 
   } catch (error) {
@@ -25,7 +26,8 @@ export const createUser = createAsyncThunk("createUser", async (data, { rejectWi
 
 // Read action Get Api .....................................
 
-export const showUser = createAsyncThunk("showUser",async(rejectWithValue)=>{
+export const showUser = createAsyncThunk("showUser", async (_, { rejectWithValue }) => {
+
   const response = await fetch("https://6901df4bb208b24affe40bb9.mockapi.io/crud");
   
   try {
@@ -100,8 +102,16 @@ const userDetail = createSlice({
     users: [],
     loading: false,
     error: null,
+    searchData:[],
   },
-  reducers: {},
+  reducers: {
+    searchUser:(state,action)=>{
+
+console.log(action.payload);
+      state.searchData = action.payload
+
+    }
+  },
 
 
   extraReducers: (builder) => {
@@ -111,7 +121,7 @@ const userDetail = createSlice({
       })
       .addCase(createUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.users.push(action.payload.message);
+        state.users.push(action.payload);
       })
       .addCase(createUser.rejected, (state) => {
         state.loading = false;
@@ -141,7 +151,8 @@ const userDetail = createSlice({
         state.loading = false;
         const {id} =action.payload;
         if(id){
-          state.users = state.users.filter((ele)=>ele.id )
+         state.users = state.users.filter((ele) => ele.id !== action.payload);
+
         }
       })
       .addCase(deleteUser.rejected, (state) => {
@@ -167,3 +178,4 @@ const userDetail = createSlice({
 });
 
 export default userDetail.reducer;
+export const {searchUser} =userDetail.actions;

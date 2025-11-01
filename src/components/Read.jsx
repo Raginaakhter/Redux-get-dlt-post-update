@@ -12,7 +12,7 @@ const Read = () => {
   const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch()
 
-  const { users, loading } = useSelector((state) => state.app)
+  const { users, loading,searchData } = useSelector((state) => state.app)
 
   useEffect(() => {
     dispatch(showUser())
@@ -25,7 +25,17 @@ const Read = () => {
   return (
     <div>
       {showPopup && <CustomModel id={id} showPopup={showPopup} setShowPopup={setShowPopup} />}
-      {users && users.map((ele) => (<div key={ele.id} className="card bg-white shadow-lg text-black w-96 h-60 mx-auto mt-10">
+      {users && 
+      
+      users.filter((ele)=>{
+        if(searchData.length ===0){
+          return ele 
+        }else{
+          return ele.name.toLowerCase().includes(searchData.toLowerCase())
+        }
+      })
+      
+      .map((ele) => (<div key={ele.id} className="card bg-white shadow-lg text-black w-96 h-60 mx-auto mt-10">
         <div className="card-body items-center text-center">
           <h2 className="card-title">{ele.name}</h2>
           <p>{ele.email}</p>

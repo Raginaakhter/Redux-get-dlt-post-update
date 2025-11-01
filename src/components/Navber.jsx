@@ -1,11 +1,18 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router";
+import { searchUser } from "../features/userDetailsSlice";
 
 
 const Navber = () => {
 
-
+const dispatch =useDispatch()
 const allusers = useSelector((state)=>state.app.users)
+const [searchData,setSearchData] = useState("")
+
+useEffect(() => {
+  dispatch(searchUser(searchData));
+}, [searchData, dispatch]);
 
 
 
@@ -20,7 +27,16 @@ const allusers = useSelector((state)=>state.app.users)
          </div>
         </div>
         <div className="flex gap-2">
-          <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+          <input type="text"
+           placeholder="Search"
+           className="input input-bordered w-24 md:w-auto"
+           onChange={(e)=>setSearchData(e.target.value)}
+           
+           
+           
+           />
+
+
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
