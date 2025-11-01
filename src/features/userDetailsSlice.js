@@ -115,6 +115,7 @@ console.log(action.payload);
 
 
   extraReducers: (builder) => {
+    // create user.........................
     builder
       .addCase(createUser.pending, (state) => {
         state.loading = true;
@@ -141,7 +142,7 @@ console.log(action.payload);
         state.error = "Failed to create user";
       });
 
-      // Delete user>..........................
+      // Delete user..........................
 
        builder
       .addCase(deleteUser.pending, (state) => {

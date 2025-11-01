@@ -27,7 +27,7 @@ const Read = () => {
   //  delete handler
   const handleDelete = (userId) => {
     dispatch(deleteUser(userId)).then(() => {
-    
+
       dispatch(showUser());
     });
   };
@@ -107,6 +107,7 @@ const Read = () => {
                 <h2 className="card-title">{ele.name}</h2>
                 <p>{ele.email}</p>
                 <p>{ele.gender}</p>
+                 
                 <div className="card-actions justify-end">
                   <button
                     className="btn bg-lime-500 text-white w-24"
@@ -114,7 +115,7 @@ const Read = () => {
                   >
                     View
                   </button>
-
+                 {/* Delete button ............................... */}
                   <button
                     className="btn bg-lime-500 text-white w-24"
                     onClick={() => handleDelete(ele.id)}
@@ -123,6 +124,7 @@ const Read = () => {
                   </button>
 
                   <Link to={`/edit/${ele.id}`}>
+                  {/* view button .....................................*/}
                     <button className="btn bg-lime-500 text-white w-24">
                       Edit
                     </button>
