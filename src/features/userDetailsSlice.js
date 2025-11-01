@@ -13,7 +13,7 @@ export const createUser = createAsyncThunk("createUser", async (data, { rejectWi
   });
 
   try {
-   const result = await response.json();
+    const result = await response.json();
 
     return result;
 
@@ -29,14 +29,14 @@ export const createUser = createAsyncThunk("createUser", async (data, { rejectWi
 export const showUser = createAsyncThunk("showUser", async (_, { rejectWithValue }) => {
 
   const response = await fetch("https://6901df4bb208b24affe40bb9.mockapi.io/crud");
-  
+
   try {
-const result = await response.json()
-return result;
+    const result = await response.json()
+    return result;
 
-  }catch(error){
+  } catch (error) {
 
-    return rejectWithValue (error)
+    return rejectWithValue(error)
   }
 });
 
@@ -44,46 +44,46 @@ return result;
 
 // Delete action  Api .....................................
 export const deleteUser = createAsyncThunk("deleteUser", async (id, { rejectWithValue }) => {
-    try {
-      const response = await fetch(
-        `https://6901df4bb208b24affe40bb9.mockapi.io/crud/${id}`,
-        { method: "DELETE" }
-      );
+  try {
+    const response = await fetch(
+      `https://6901df4bb208b24affe40bb9.mockapi.io/crud/${id}`,
+      { method: "DELETE" }
+    );
 
-      if (!response.ok) {
-        throw new Error("Failed to delete user");
-      }
-
-      return id; 
-    } catch (error) {
-      return rejectWithValue(error.message);
+    if (!response.ok) {
+      throw new Error("Failed to delete user");
     }
+
+    return id;
+  } catch (error) {
+    return rejectWithValue(error.message);
   }
+}
 );
 
 
 
 
 // Update action  Api..................................
-export const updateUser = createAsyncThunk( "updateUser", async (data, { rejectWithValue }) => {
-    try {
-      const response = await fetch(
-        `https://6901df4bb208b24affe40bb9.mockapi.io/crud/${data.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data), 
-        }
-      );
+export const updateUser = createAsyncThunk("updateUser", async (data, { rejectWithValue }) => {
+  try {
+    const response = await fetch(
+      `https://6901df4bb208b24affe40bb9.mockapi.io/crud/${data.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
 
-      const result = await response.json(); 
-      return result;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    return rejectWithValue(error.message);
   }
+}
 );
 
 
@@ -102,12 +102,13 @@ const userDetail = createSlice({
     users: [],
     loading: false,
     error: null,
-    searchData:[],
+    searchData: [],
   },
+  // search User.......................................
   reducers: {
-    searchUser:(state,action)=>{
+    searchUser: (state, action) => {
 
-console.log(action.payload);
+      console.log(action.payload);
       state.searchData = action.payload
 
     }
@@ -128,8 +129,8 @@ console.log(action.payload);
         state.loading = false;
         state.error = "Failed to create user";
       });
-      // Show user........................
-      builder
+    // Show user........................
+    builder
       .addCase(showUser.pending, (state) => {
         state.loading = true;
       })
@@ -142,17 +143,17 @@ console.log(action.payload);
         state.error = "Failed to create user";
       });
 
-      // Delete user..........................
+    // Delete user..........................
 
-       builder
+    builder
       .addCase(deleteUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
         state.loading = false;
-        const {id} =action.payload;
-        if(id){
-         state.users = state.users.filter((ele) => ele.id !== action.payload);
+        const { id } = action.payload;
+        if (id) {
+          state.users = state.users.filter((ele) => ele.id !== action.payload);
 
         }
       })
@@ -160,16 +161,16 @@ console.log(action.payload);
         state.loading = false;
         state.error = "Failed to create user";
       });
-      // update user...............................
-         builder
+    // update user...............................
+    builder
       .addCase(updateUser.pending, (state) => {
         state.loading = true;
       })
       .addCase(updateUser.fulfilled, (state, action) => {
         state.loading = false;
-    state.users=state.users.map((ele)=>(
-      ele.id === action.payload.id? action.payload :ele
-    ));
+        state.users = state.users.map((ele) => (
+          ele.id === action.payload.id ? action.payload : ele
+        ));
       })
       .addCase(updateUser.rejected, (state) => {
         state.loading = false;
@@ -179,4 +180,4 @@ console.log(action.payload);
 });
 
 export default userDetail.reducer;
-export const {searchUser} =userDetail.actions;
+export const { searchUser } = userDetail.actions;
