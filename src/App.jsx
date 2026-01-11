@@ -1,11 +1,11 @@
-import UserProvider from "./context/UserProvider";
+
 import Home from "./Home";
 
 function App() {
   return (
-    <UserProvider>
+
       <Home />
-    </UserProvider>
+   
   );
 }
 
