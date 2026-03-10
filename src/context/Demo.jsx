@@ -1,9 +1,10 @@
-import React from 'react';
+
 
 const Demo = () => {
     return (
         <div>
-            this is demo page
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem rem perspiciatis itaque ut placeat quibusdam sapiente asperiores magni, voluptate architecto doloremque
+            velit dignissimos rerum explicabo nulla natus, corrupti harum reiciendis.
         </div>
     );
 };
